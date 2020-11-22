@@ -9,6 +9,7 @@ def Create_Table():
   cursor.execute("CREATE TABLE Aviao (id integer PRIMARY KEY AUTOINCREMENT,Nome text NOT NULL unique)")
   cursor.execute("CREATE TABLE Voo (id integer PRIMARY KEY AUTOINCREMENT,idAviao integer NOT NULL,idCidadeOrigem integer NOT NULL,idCidadeDestino integer NOT NULL, Data text NOT NULL, Horario text NOT NULL, Duracao_Voo text NOT NULL)")
   banco.commit()
+  return 0
 
 def Add_airplane(nome):
   
@@ -18,8 +19,9 @@ def Add_airplane(nome):
   if entry is None:
     cursor.execute("INSERT INTO Aviao(Nome) Values(?)",(nome,))
     banco.commit()
+    return 0
   else:
-    return 5
+    return 1
 
 def Add_city(nome):
   
@@ -28,8 +30,9 @@ def Add_city(nome):
   if entry is None:
     cursor.execute("INSERT INTO Cidade(Nome) Values(?)",(nome,))
     banco.commit()
+    return 0
   else:
-    return 5
+    return 1
 
 def Add_flights(idAviao,idCidadeOrigem,idCidadeDestino,data,horario,duracao_Voo):
 
@@ -41,12 +44,11 @@ def Add_flights(idAviao,idCidadeOrigem,idCidadeDestino,data,horario,duracao_Voo)
   entry = cursor.fetchall() 
 
   if datetime.fromisoformat(data+" "+horario) <= datetime.now(): 
-    return 5
+    return 2
 
   if int(idCidadeOrigem[0]) == int(idCidadeDestino[0]):
-    return 5
+    return 1
   
-  #É um if que testa se o tamanho do meu entry é == 0
   if len(entry) == 0:
     cursor.execute("INSERT INTO Voo(idAviao,idCidadeOrigem,idCidadeDestino,Data,Horario,Duracao_Voo) Values(?,?,?,?,?,?)",(idAviao[0],idCidadeOrigem[0],idCidadeDestino[0],data,horario,duracao_Voo))
     banco.commit()
@@ -57,10 +59,10 @@ def Add_flights(idAviao,idCidadeOrigem,idCidadeDestino,data,horario,duracao_Voo)
     tempo_voo = dados[6].split(":")
 
     if datetime.fromisoformat(dados[4]+" "+dados[5]) + timedelta(hours=int(tempo_voo[0]), minutes = int(tempo_voo[1])) >= datetime.fromisoformat(data+" "+horario):
-      return 5
+      return 2
 
     if int(dados[3]) != int(idCidadeOrigem[0]):
-      return 5
+      return 3
       
     else:
       cursor.execute("INSERT INTO Voo(idAviao,idCidadeOrigem,idCidadeDestino,Data,Horario,Duracao_Voo) Values(?,?,?,?,?,?)",(idAviao[0],idCidadeOrigem[0],idCidadeDestino[0],data,horario,duracao_Voo))
@@ -91,3 +93,32 @@ def search_in_cidade(idCidade):
   for i,nome in cidades:
     if idCidade == nome:
       return i,nome
+
+def name_for_id():
+  flights=[]
+  lista = list_flights()
+  for i in lista:
+    voo = []
+    voo.append(i[0])
+
+    avioes = list_airplanes()
+    for j,nome in avioes:
+      if i[1] == j:
+        voo.append(nome)
+
+    cidades = list_city()
+    for j,nome in cidades:
+      if i[2] == j:
+        voo.append(nome)
+        
+    cidades = list_city()
+    for j,nome in cidades:
+      if i[3] == j:
+        voo.append(nome)
+    voo.append(i[4])
+    voo.append(i[5])
+    voo.append(i[6])
+
+    flights.append(tuple(voo)) 
+
+  return flights

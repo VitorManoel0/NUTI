@@ -39,7 +39,7 @@
             <input type="time" id="horario" name="horario" required><br><br>
             <label>Duração do voo</label><br>
             <input type="time" id="duracao_Voo" name="duracao_Voo" required><br><br>
-            <input type="submit" value="Submit">
+            <input type="submit" value="Submit" class="btn btn-success">
           </form> 
         </div>
       </div>
@@ -49,21 +49,21 @@
           <form method="POST" action = "/add">
             <h1>Adicionar avião:</h1><br>
             <input type="text" id="aviao" name="aviao" required><br><br>
-            <input type="submit" value="Submit">
+            <input type="submit" value="Submit" class="btn btn-success">
           </form>
         </div>  
         <div class="shadow-lg p-3 mb-5 bg-white rounded">
           <form method="POST" action = "/add">
             <h1>Adicionar cidades:</h1><br>
             <input type="text" id="cidade" name="cidade" required><br><br>
-            <input type="submit" value="Submit">
+            <input type="submit" value="Submit" class="btn btn-success">
           </form>
         </div>
         <div class="col">
           <form method="POST" action = "/view">
-            <input type="submit" value="Ver Voos" name="voo">
-            <input type="submit" value="Ver Aviões" name="aviao">
-            <input type="submit" value="Ver Cidades" name="cidade">
+            <input type="submit" value="Ver Voos" name="voo" class="btn btn-primary btn-lg">
+            <input type="submit" value="Ver Aviões" name="aviao" class="btn btn-primary btn-lg">
+            <input type="submit" value="Ver Cidades" name="cidade" class="btn btn-primary btn-lg">
           </form>
         </div>
       </div>
