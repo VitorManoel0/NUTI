@@ -3,33 +3,72 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
   <title>Voos</title>
 </head>
 <body>
-  <form enctype="application/json">
-    <label>Adicionar avião:</label><br>
-    <input type="text" id="aviao"><br>
-    <input type="submit" value="Submit">
-  </form>
-
-  <form enctype="application/json"></form>
-    <label>Adicionar cidades:</label><br>
-    <input type="text" id="cidade"><br><br>
-    <input type="submit" value="Submit">
-  </form>
-
-  <form enctype="application/json">
-    <label>Adicionar Vôos:</label><br>
-    <input type="text" id="nome" value="Nome"><br><br>
-    <input type="text" id="idCidadeDestino" value="Cidade destino"><br><br>
-    <input type="text" id="idCidadeOrigem" value="Cidade origem"><br><br>
-    <input type="Data" id="data" value="Data"><br><br>
-    <input type="text" id="idAviao" value="Id Aviao"><br><br>
-    <input type="text" id="horario" value="Horário"><br><br>
-    <input type="text" id="duracao_Voo" value="Duração do voo"><br><br>
-    <input type="submit" value="Submit">
-  </form> 
   
+  <br>
+  <div class="container">
+    <div class="row">
+      <div class="col" >
+        <div class="shadow-lg p-3 mb-5 bg-white rounded">
+          <form method="POST" action = "/add">
+            <h1>Adicionar vôos:</h1><br>
+            <label>Nome do avião</label><br>
+              <select id="idAviao" name="idAviao" required class="custom-select">
+                {% for i in aviao%}
+                  <option value="{{i[1]}}">{{ i[1] }}</option>
+                {% endfor %}
+              </select><br><br>
+            <label>Cidade origem</label><br>
+              <select id="idCidadeOrigem" name="idCidadeOrigem" required class="custom-select">
+                {% for i in cidade%}
+                  <option value="{{i[1]}}">{{ i[1] }}</option>
+                {% endfor %}
+              </select><br><br>
+            <label>Cidade destino</label><br>
+            <select id="idCidadeDestino" name= "idCidadeDestino" required class="custom-select">
+              {% for i in cidade%}
+                <option value="{{i[1]}}">{{ i[1] }}</option>
+              {% endfor %}
+            </select><br><br>
+            <label>Data</label><br>
+            <input type="date" id="data" name="data" required><br><br>
+            <label>Horário</label><br>
+            <input type="time" id="horario" name="horario" required><br><br>
+            <label>Duração do voo</label><br>
+            <input type="time" id="duracao_Voo" name="duracao_Voo" required><br><br>
+            <input type="submit" value="Submit">
+          </form> 
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="shadow-lg p-3 mb-5 bg-white rounded">
+          <form method="POST" action = "/add">
+            <h1>Adicionar avião:</h1><br>
+            <input type="text" id="aviao" name="aviao" required><br><br>
+            <input type="submit" value="Submit">
+          </form>
+        </div>  
+        <div class="shadow-lg p-3 mb-5 bg-white rounded">
+          <form method="POST" action = "/add">
+            <h1>Adicionar cidades:</h1><br>
+            <input type="text" id="cidade" name="cidade" required><br><br>
+            <input type="submit" value="Submit">
+          </form>
+        </div>
+        <div class="col">
+          <form method="POST" action = "/view">
+            <input type="submit" value="Ver Voos" name="voo">
+            <input type="submit" value="Ver Aviões" name="aviao">
+            <input type="submit" value="Ver Cidades" name="cidade">
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
 </body>
 </html>
